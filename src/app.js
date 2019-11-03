@@ -1,5 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
+const helmet = require('helmet');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const routes = require('./routes');
 
@@ -12,6 +14,8 @@ class App {
   }
 
   middlewares() {
+    this.express.use(helmet());
+    this.express.use(cors());
     this.express.use(morgan('dev'));
     this.express.use(bodyParser.json());
     this.express.use(bodyParser.urlencoded({ extended: false }));

@@ -11,4 +11,5 @@ module.exports = {
   dbDatabase: process.env.DB_DATABASE,
   dbDialect: process.env.DB_DIALECT || 'postgres',
   appSecretKey: process.env.APP_SECRET_KEY,
+  appAdminSecretKey: process.env.APP_ADMIN_SECRET_KEY,
 };

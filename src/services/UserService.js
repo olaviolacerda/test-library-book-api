@@ -37,7 +37,7 @@ class UserService {
 
     return {
       user,
-      token: user.generateToken(),
+      'access-token': user.generateToken(),
     };
   }
 }

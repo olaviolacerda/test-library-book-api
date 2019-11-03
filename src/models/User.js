@@ -3,7 +3,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const { appSecretKey } = require('../env');
+const { appSecretKey, appAdminSecretKey } = require('../env');
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     phone: DataTypes.STRING,
     password: DataTypes.VIRTUAL,
     password_hash: DataTypes.STRING,
+    admin: DataTypes.BOOLEAN,
   }, {
     hooks: {
       beforeSave: async (user) => {
@@ -25,7 +26,11 @@ module.exports = (sequelize, DataTypes) => {
 
   User.prototype.checkPassword = function (password) { return bcrypt.compare(password, this.password_hash); };
 
-  User.prototype.generateToken = function () { return jwt.sign({ id: this.id }, appSecretKey); };
+  User.prototype.generateToken = function () {
+    return jwt.sign({ id: this.id, admin: this.admin }, appSecretKey, {
+      expiresIn: 300,
+    });
+  };
 
   return User;
 };
