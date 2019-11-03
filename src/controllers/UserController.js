@@ -21,6 +21,38 @@ class UserController {
       return res.status(400).json({ code: 'ERROR_LIST_USERS', message: error.message, timestamp: new Date().getTime() });
     }
   }
+
+  async update(req, res) {
+    try {
+      const { userId } = req.params;
+
+      await userService.findById(userId);
+
+      const [, [user]] = await userService.update(userId, req.body);
+
+      return res.json({ message: 'User was successfully edited.', user });
+    } catch (error) {
+      return res.status(400).json({ code: 'ERROR_EDIT_USER', message: error.message, timestamp: new Date().getTime() });
+    }
+  }
+
+  async delete(req, res) {
+    try {
+      const { userId } = req.params;
+
+      await userService.findById(userId);
+
+      const response = await userService.delete(userId);
+
+      if (response === 0) {
+        throw new Error(response);
+      }
+
+      return res.json({ message: 'User was successfully deleted.', timestamp: new Date().getTime() });
+    } catch (error) {
+      return res.status(400).json({ code: 'ERROR_DELETE_USER', message: error.message, timestamp: new Date().getTime() });
+    }
+  }
 }
 
 module.exports = new UserController();

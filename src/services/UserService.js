@@ -7,7 +7,25 @@ class UserService {
 
   async create(data) {
     const user = await this.userModel.create(data);
+
     return user;
+  }
+
+  async update(userId, body) {
+    const response = await this.userModel.update(body, {
+      where: { id: userId },
+      returning: true,
+    });
+
+    return response;
+  }
+
+  async delete(userId) {
+    const response = await this.userModel.destroy({
+      where: { id: userId }, cascade: true,
+    });
+
+    return response;
   }
 
   async list() {
@@ -16,7 +34,7 @@ class UserService {
   }
 
   async findById(id) {
-    const user = await this.userModel.getById(id);
+    const user = await this.userModel.findByPk(Number(id));
 
     if (!user) {
       throw new Error('User not found');
