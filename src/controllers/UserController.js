@@ -11,6 +11,16 @@ class UserController {
       return res.status(400).json({ code: 'ERROR_CREATE_USER', message: error.message, timestamp: new Date().getTime() });
     }
   }
+
+  async list(req, res) {
+    try {
+      const users = await userService.list();
+
+      return res.json(users);
+    } catch (error) {
+      return res.status(400).json({ code: 'ERROR_LIST_USERS', message: error.message, timestamp: new Date().getTime() });
+    }
+  }
 }
 
 module.exports = new UserController();

@@ -10,6 +10,11 @@ class UserService {
     return user;
   }
 
+  async list() {
+    const users = await this.userModel.findAll({ raw: true });
+    return users;
+  }
+
   async findById(id) {
     const user = await this.userModel.getById(id);
 
@@ -36,7 +41,6 @@ class UserService {
     }
 
     return {
-      user,
       'access-token': user.generateToken(),
     };
   }
