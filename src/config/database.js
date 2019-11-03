@@ -2,12 +2,11 @@ const env = require('../env');
 
 module.exports = {
   host: env.dbHost,
+  port: env.dbPort,
   username: env.dbUsername,
   password: env.dbPassword,
   database: env.dbDatabase,
   dialect: env.dbDialect,
-  operatorsAliases: false,
-  logging: false,
   define: {
     timestamps: true,
     underscored: true,
