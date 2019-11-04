@@ -15,6 +15,15 @@ class BookService {
     const books = await this.bookModel.findAll({ raw: true });
     return books;
   }
+
+  async findById(id) {
+    const book = await this.bookModel.findByPk(Number(id));
+
+    if (!book) {
+      throw new Error('Book not found');
+    }
+    return book;
+  }
 }
 
 module.exports = new BookService();

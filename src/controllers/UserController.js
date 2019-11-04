@@ -12,6 +12,21 @@ class UserController {
     }
   }
 
+  async show(req, res) {
+    try {
+      const { userId } = req.params;
+      const {
+        name, age, phone, email,
+      } = await userService.findById(userId);
+
+      return res.json({
+        name, age, phone, email,
+      });
+    } catch (error) {
+      return res.status(400).json({ code: 'ERROR_SHOW_USER', message: error.message, timestamp: new Date().getTime() });
+    }
+  }
+
   async list(req, res) {
     try {
       const users = await userService.list();

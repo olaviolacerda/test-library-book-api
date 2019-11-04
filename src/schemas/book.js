@@ -6,4 +6,8 @@ const createBookSchema = Joi.object({
   year: Joi.number().required(),
 });
 
-module.exports = { createBookSchema };
+const showBookSchema = Joi.object({
+  bookId: Joi.number().required(),
+});
+
+module.exports = { createBookSchema, showBookSchema };

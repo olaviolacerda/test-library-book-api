@@ -1,10 +1,13 @@
 const validator = require('express-joi-validation').createValidator({});
 const usersController = require('../controllers/UserController');
-const { createUserSchema, deleteUserSchema, updateUserSchema } = require('../schemas/user');
+const {
+  createUserSchema, deleteUserSchema, updateUserSchema, showUserSchema,
+} = require('../schemas/user');
 const authorizationMiddleware = require('../middleware/authorization');
 
 module.exports = (routes) => {
   routes.post('/users', validator.body(createUserSchema), usersController.create);
+  routes.get('/users/:userId', validator.params(showUserSchema), usersController.show);
 
   // Admin routes
   routes.use(authorizationMiddleware);

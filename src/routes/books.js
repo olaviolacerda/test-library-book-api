@@ -5,6 +5,7 @@ const authorizationMiddleware = require('../middleware/authorization');
 
 module.exports = (routes) => {
   routes.get('/books', bookController.list);
+  routes.get('/books/:bookId', bookController.show);
   // Admin routes
   routes.use(authorizationMiddleware);
   routes.post('/books', validator.body(createBookSchema), bookController.create);

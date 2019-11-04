@@ -21,6 +21,21 @@ class BookController {
       return res.status(400).json({ code: 'ERROR_LIST_BOOK', message: error.message, timestamp: new Date().getTime() });
     }
   }
+
+  async show(req, res) {
+    try {
+      const { bookId } = req.params;
+      const {
+        title, isbn, year,
+      } = await bookService.findById(bookId);
+
+      return res.json({
+        title, isbn, year,
+      });
+    } catch (error) {
+      return res.status(400).json({ code: 'ERROR_SHOW_USER', message: error.message, timestamp: new Date().getTime() });
+    }
+  }
 }
 
 module.exports = new BookController();
