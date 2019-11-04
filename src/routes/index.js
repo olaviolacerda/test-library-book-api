@@ -6,5 +6,6 @@ require('./session')(routes);
 routes.use(authMiddleware);
 
 require('./users')(routes);
+require('./books')(routes);
 
 module.exports = routes;

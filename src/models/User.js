@@ -3,7 +3,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const { appSecretKey, appAdminSecretKey } = require('../env');
+const { appSecretKey } = require('../env');
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
@@ -29,6 +29,14 @@ module.exports = (sequelize, DataTypes) => {
   User.prototype.generateToken = function () {
     return jwt.sign({ id: this.id, admin: this.admin }, appSecretKey, {
       expiresIn: '1 days',
+    });
+  };
+
+  User.associates = (models) => {
+    User.hasMany(models.Book, {
+      foreignKey: 'favorite_book_id',
+      as: 'favorite_books',
+      through: 'favorite_books',
     });
   };
 

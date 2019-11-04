@@ -7,6 +7,8 @@
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
     "test": "jest",
+    "test:watch": "jest --watch",
+    "seed": "sequelize db:seed:all",
     "cover": "jest --coverage",
     "migration:create": "sequelize migration:create --name",
     "migrate": "sequelize db:migrate"
@@ -21,7 +23,8 @@
     "authentication",
     "jwt",
     "sequelize",
-    "postgres"
+    "postgres",
+    "sinon"
   ],
   "author": "Olavio Lacerda",
   "license": "ISC",
@@ -46,6 +49,9 @@
     "eslint-plugin-import": "^2.18.2",
     "jest": "^24.9.0",
     "nodemon": "^1.19.4",
-    "sequelize-cli": "^5.5.1"
+    "sequelize-cli": "^5.5.1",
+    "sequelize-mock": "^0.10.2",
+    "sinon": "^7.5.0",
+    "supertest": "^4.0.2"
   }
 }

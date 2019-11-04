@@ -4,7 +4,7 @@ module.exports = {
   coveragePathIgnorePatterns: [
     '/node_modules/',
   ],
-  roots: [
-    '<rootDir>/src',
-  ],
+  transform: {
+    '^.+\\.jsx?$': 'babel-jest',
+  },
 };
