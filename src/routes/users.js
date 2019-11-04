@@ -17,4 +17,5 @@ module.exports = (routes) => {
   routes.put('/users/:userId', [validator.body(updateUserSchema.body), validator.params(updateUserSchema.params)], usersController.update);
   routes.delete('/users/:userId', validator.params(deleteUserSchema), usersController.delete);
   routes.post('/users/:userId/favourites', favouritesController.add);
+  routes.get('/users/:userId/favourites', favouritesController.list);
 };

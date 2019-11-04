@@ -29,7 +29,7 @@ class UserService {
   }
 
   async list() {
-    const users = await this.userModel.findAll({ attributes: ['id', 'name', 'age', 'phone', 'email'], include: [{ all: true }] });
+    const users = await this.userModel.findAll({ attributes: ['id', 'name', 'age', 'phone', 'email'] });
     return users;
   }
 
