@@ -10,6 +10,11 @@ class BookService {
 
     return book;
   }
+
+  async list() {
+    const books = await this.bookModel.findAll({ raw: true });
+    return books;
+  }
 }
 
 module.exports = new BookService();
