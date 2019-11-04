@@ -33,11 +33,7 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   User.associates = (models) => {
-    User.hasMany(models.Book, {
-      foreignKey: 'favorite_book_id',
-      as: 'favorite_books',
-      through: 'favorite_books',
-    });
+    User.belongsToMany(models.Books, { through: 'Favourites', foreignKey: 'user_id', as: 'books' });
   };
 
   return User;

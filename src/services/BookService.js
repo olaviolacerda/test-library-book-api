@@ -1,4 +1,4 @@
-const { Book } = require('../models');
+const { Book, Category } = require('../models');
 
 class BookService {
   constructor() {
@@ -31,12 +31,24 @@ class BookService {
   }
 
   async list() {
-    const books = await this.bookModel.findAll({ raw: true });
+    const books = await this.bookModel.findAll({
+      attributes: ['title', 'isbn', 'year'],
+      include: { model: Category, as: 'category', attributes: ['title', 'id'] },
+    });
     return books;
   }
 
-  async findById(id) {
-    const book = await this.bookModel.findByPk(Number(id));
+  async findById(id, options) {
+    const findOptions = options || {
+      attributes: ['title', 'isbn', 'year'],
+      include: {
+        model: Category,
+        as: 'category',
+        attributes: ['title', 'id'],
+      },
+    };
+
+    const book = await this.bookModel.findByPk(Number(id), findOptions);
 
     if (!book) {
       throw new Error('Book not found');

@@ -6,7 +6,7 @@ class UserController {
     try {
       const user = await userService.create(req.body);
 
-      return res.json(user);
+      return res.status(201).json(user);
     } catch (error) {
       return res.status(400).json({ code: 'ERROR_CREATE_USER', message: error.message, timestamp: new Date().getTime() });
     }
@@ -15,13 +15,9 @@ class UserController {
   async show(req, res) {
     try {
       const { userId } = req.params;
-      const {
-        name, age, phone, email,
-      } = await userService.findById(userId);
+      const user = await userService.findById(userId, { attributes: ['name', 'age', 'phone', 'email'], include: ['favourite_books'] });
 
-      return res.json({
-        name, age, phone, email,
-      });
+      return res.json(user);
     } catch (error) {
       return res.status(400).json({ code: 'ERROR_SHOW_USER', message: error.message, timestamp: new Date().getTime() });
     }
@@ -66,6 +62,21 @@ class UserController {
       return res.json({ message: 'User was successfully deleted.' });
     } catch (error) {
       return res.status(400).json({ code: 'ERROR_DELETE_USER', message: error.message, timestamp: new Date().getTime() });
+    }
+  }
+
+  async updateFavoriteBooks(req, res) {
+    try {
+      const { userId } = req.params;
+      const { bookIds } = req.body;
+
+      const user = await userService.findById(userId);
+
+      await userService.updateFavoriteBooks(user, bookIds);
+
+      return res.json({ message: 'Favorite Books List updated.' });
+    } catch (error) {
+      return res.status(400).json({ code: 'ERROR_UPDATE_USER_FAVORITE_BOOKS', message: error.message, timestamp: new Date().getTime() });
     }
   }
 }

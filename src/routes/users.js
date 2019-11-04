@@ -1,5 +1,7 @@
 const validator = require('express-joi-validation').createValidator({});
 const usersController = require('../controllers/UserController');
+const favouritesController = require('../controllers/FavouriteController');
+
 const {
   createUserSchema, deleteUserSchema, updateUserSchema, showUserSchema,
 } = require('../schemas/user');
@@ -14,4 +16,5 @@ module.exports = (routes) => {
   routes.get('/users', usersController.list);
   routes.put('/users/:userId', [validator.body(updateUserSchema.body), validator.params(updateUserSchema.params)], usersController.update);
   routes.delete('/users/:userId', validator.params(deleteUserSchema), usersController.delete);
+  routes.post('/users/:userId/favourites', favouritesController.add);
 };

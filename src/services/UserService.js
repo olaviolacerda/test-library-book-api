@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 const { User } = require('../models');
 
 class UserService {
@@ -29,12 +30,13 @@ class UserService {
   }
 
   async list() {
-    const users = await this.userModel.findAll({ raw: true });
+    const users = await this.userModel.findAll({ attributes: ['name', 'age', 'phone', 'email'], include: ['favourite_books'] });
     return users;
   }
 
-  async findById(id) {
-    const user = await this.userModel.findByPk(Number(id));
+
+  async findById(id, options = {}) {
+    const user = await this.userModel.findByPk(Number(id), options);
 
     if (!user) {
       throw new Error('User not found');

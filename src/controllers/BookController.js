@@ -6,7 +6,7 @@ class BookController {
     try {
       const book = await bookService.create(req.body);
 
-      return res.json(book);
+      return res.status(201).json(book);
     } catch (error) {
       return res.status(400).json({ code: 'ERROR_CREATE_BOOK', message: error.message, timestamp: new Date().getTime() });
     }
@@ -39,13 +39,9 @@ class BookController {
   async show(req, res) {
     try {
       const { bookId } = req.params;
-      const {
-        title, isbn, year,
-      } = await bookService.findById(bookId);
+      const book = await bookService.findById(bookId);
 
-      return res.json({
-        title, isbn, year,
-      });
+      return res.json(book);
     } catch (error) {
       return res.status(400).json({ code: 'ERROR_SHOW_BOOK', message: error.message, timestamp: new Date().getTime() });
     }

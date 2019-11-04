@@ -8,10 +8,8 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Book.associate = (models) => {
-    Book.belongsToMany(models.User, {
-      foreignKey: 'favorite_book_id',
-      through: 'favorite_books',
-    });
+    Book.belongsTo(models.Category, { foreignKey: 'category_id', as: 'category' });
+    Book.belongsToMany(models.User, { through: 'Favourites', foreignKey: 'book_id', as: 'users' });
   };
 
   return Book;
