@@ -34,12 +34,8 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
-  User.associates = (models) => {
-    User.belongsToMany(models.Book, {
-      through: 'favourites',
-      foreignKey: 'user_id',
-      as: 'books',
-    });
+  User.associate = (models) => {
+    User.belongsToMany(models.Book, { through: 'user_books', as: 'favouriteBooks' });
   };
 
   return User;
