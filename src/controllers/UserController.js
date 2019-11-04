@@ -45,7 +45,7 @@ class UserController {
 
       const [, [user]] = await userService.update(userId, req.body);
 
-      return res.json({ message: 'User was successfully edited.', user });
+      return res.json(user);
     } catch (error) {
       return res.status(400).json({ code: 'ERROR_EDIT_USER', message: error.message, timestamp: new Date().getTime() });
     }
@@ -63,7 +63,7 @@ class UserController {
         throw new Error(response);
       }
 
-      return res.json({ message: 'User was successfully deleted.', timestamp: new Date().getTime() });
+      return res.json({ message: 'User was successfully deleted.' });
     } catch (error) {
       return res.status(400).json({ code: 'ERROR_DELETE_USER', message: error.message, timestamp: new Date().getTime() });
     }

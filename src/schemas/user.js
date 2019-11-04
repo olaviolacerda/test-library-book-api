@@ -15,7 +15,7 @@ const updateUserSchema = {
     phone: Joi.string(),
     password: Joi.string().min(8),
     age: Joi.number(),
-  }),
+  }).min(1),
   params: Joi.object({
     userId: Joi.number().required(),
   }),

@@ -11,6 +11,25 @@ class BookService {
     return book;
   }
 
+
+  async delete(bookId) {
+    const response = await this.bookModel.destroy({
+      where: { id: bookId },
+    });
+
+    return response;
+  }
+
+
+  async update(bookId, body) {
+    const response = await this.bookModel.update(body, {
+      where: { id: bookId },
+      returning: true,
+    });
+
+    return response;
+  }
+
   async list() {
     const books = await this.bookModel.findAll({ raw: true });
     return books;

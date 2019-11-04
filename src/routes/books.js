@@ -1,12 +1,16 @@
 const validator = require('express-joi-validation').createValidator({});
-const bookController = require('../controllers/BookController');
-const { createBookSchema } = require('../schemas/book');
+const booksController = require('../controllers/BookController');
+const {
+  createBookSchema, updateBookSchema, deleteBookSchema, showBookSchema,
+} = require('../schemas/book');
 const authorizationMiddleware = require('../middleware/authorization');
 
 module.exports = (routes) => {
-  routes.get('/books', bookController.list);
-  routes.get('/books/:bookId', bookController.show);
+  routes.get('/books', booksController.list);
+  routes.get('/books/:bookId', validator.params(showBookSchema), booksController.show);
   // Admin routes
   routes.use(authorizationMiddleware);
-  routes.post('/books', validator.body(createBookSchema), bookController.create);
+  routes.post('/books', validator.body(createBookSchema), booksController.create);
+  routes.put('/books/:bookId', [validator.body(updateBookSchema.body), validator.params(updateBookSchema.params)], booksController.update);
+  routes.delete('/books/:bookId', validator.params(deleteBookSchema), booksController.delete);
 };

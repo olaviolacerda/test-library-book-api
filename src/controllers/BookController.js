@@ -22,6 +22,20 @@ class BookController {
     }
   }
 
+  async update(req, res) {
+    try {
+      const { bookId } = req.params;
+
+      await bookService.findById(bookId);
+
+      const [, [book]] = await bookService.update(bookId, req.body);
+
+      return res.json(book);
+    } catch (error) {
+      return res.status(400).json({ code: 'ERROR_EDIT_BOOK', message: error.message, timestamp: new Date().getTime() });
+    }
+  }
+
   async show(req, res) {
     try {
       const { bookId } = req.params;
@@ -33,7 +47,25 @@ class BookController {
         title, isbn, year,
       });
     } catch (error) {
-      return res.status(400).json({ code: 'ERROR_SHOW_USER', message: error.message, timestamp: new Date().getTime() });
+      return res.status(400).json({ code: 'ERROR_SHOW_BOOK', message: error.message, timestamp: new Date().getTime() });
+    }
+  }
+
+  async delete(req, res) {
+    try {
+      const { bookId } = req.params;
+
+      await bookService.findById(bookId);
+
+      const response = await bookService.delete(bookId);
+
+      if (response === 0) {
+        throw new Error(response);
+      }
+
+      return res.json({ message: 'Book was successfully deleted.' });
+    } catch (error) {
+      return res.status(400).json({ code: 'ERROR_DELETE_BOOK', message: error.message, timestamp: new Date().getTime() });
     }
   }
 }

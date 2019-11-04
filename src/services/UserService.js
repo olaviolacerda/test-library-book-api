@@ -22,7 +22,7 @@ class UserService {
 
   async delete(userId) {
     const response = await this.userModel.destroy({
-      where: { id: userId }, cascade: true,
+      where: { id: userId },
     });
 
     return response;
