@@ -11,14 +11,16 @@ module.exports = {
       user_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'users', key: 'id' },
+        model: 'User',
+        key: 'id',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
       book_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'books', key: 'id' },
+        model: 'Book',
+        key: 'id',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
