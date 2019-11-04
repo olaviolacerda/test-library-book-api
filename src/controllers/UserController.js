@@ -15,7 +15,7 @@ class UserController {
   async show(req, res) {
     try {
       const { userId } = req.params;
-      const user = await userService.findById(userId, { attributes: ['name', 'age', 'phone', 'email'], include: ['favourite_books'] });
+      const user = await userService.findById(userId, { attributes: ['name', 'age', 'phone', 'email'], include: [{ all: true }] });
 
       return res.json(user);
     } catch (error) {

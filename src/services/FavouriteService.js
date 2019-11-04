@@ -12,7 +12,7 @@ class FavouriteService {
 
     const book = await this.bookService.findById(bookId, {});
 
-    user.addFavourite(book);
+    const ct = await user.addBook(book);
 
     return true;
   }
