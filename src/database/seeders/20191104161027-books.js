@@ -1,0 +1,62 @@
+
+module.exports = {
+  up: (queryInterface) => queryInterface.bulkInsert('books',
+    [{
+      title: 'Harry Potter and The Philosopher\'s Stone',
+      year: 1997,
+      isbn: 480162841,
+      category_id: 6,
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+    {
+      title: 'Harry Potter and The Chamber of Secrets',
+      year: 1998,
+      isbn: 2918256,
+      category_id: 6,
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+    {
+      title: 'Harry Potter and The Prisoner of Azkaban',
+      year: 1999,
+      isbn: 550364374,
+      category_id: 6,
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+    {
+      title: 'Harry Potter and The Goblet of Fire',
+      year: 2000,
+      isbn: 373833276,
+      category_id: 6,
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+    {
+      title: 'Harry Potter and The Order of the Phoenix',
+      year: 2003,
+      isbn: 583083656,
+      category_id: 6,
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+    {
+      title: 'Harry Potter and The Half-Blood Prince',
+      year: 2005,
+      isbn: 305276008,
+      category_id: 6,
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+    {
+      title: 'Harry Potter and The Deathly Hallows',
+      year: 2007,
+      isbn: 299888541,
+      category_id: 6,
+      created_at: new Date(),
+      updated_at: new Date(),
+    }], {}),
+
+  down: (queryInterface) => queryInterface.bulkDelete('books', null, {}),
+};

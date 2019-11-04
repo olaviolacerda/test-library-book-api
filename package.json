@@ -6,12 +6,13 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "jest --passWithNoTests",
+    "test:watch": "jest --watch --passWithNoTests",
     "seed": "sequelize db:seed:all",
-    "cover": "jest --coverage",
     "migration:create": "sequelize migration:create --name",
-    "migrate": "sequelize db:migrate"
+    "migrate": "sequelize db:migrate",
+    "prepare:database": "npm run migrate && npm run seed",
+    "lint": "eslint --fix --report-unused-disable-directives src || exit 0"
   },
   "keywords": [
     "book",
@@ -41,6 +42,7 @@
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.9.1",
     "pg": "^7.12.1",
+    "pg-hstore": "^2.3.3",
     "sequelize": "^5.21.2"
   },
   "devDependencies": {

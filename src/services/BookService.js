@@ -32,7 +32,7 @@ class BookService {
 
   async list() {
     const books = await this.bookModel.findAll({
-      attributes: ['title', 'isbn', 'year'],
+      attributes: ['id', 'title', 'isbn', 'year'],
       include: { model: Category, as: 'category', attributes: ['title', 'id'] },
     });
     return books;

@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 const { User } = require('../models');
 
 class UserService {
@@ -30,7 +29,7 @@ class UserService {
   }
 
   async list() {
-    const users = await this.userModel.findAll({ attributes: ['name', 'age', 'phone', 'email'], include: ['favourite_books'] });
+    const users = await this.userModel.findAll({ attributes: ['id', 'name', 'age', 'phone', 'email'], include: ['favourite_books'] });
     return users;
   }
 

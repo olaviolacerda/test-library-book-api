@@ -1,9 +1,8 @@
 /* eslint-disable func-names */
-/* eslint-disable no-param-reassign */
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const { appSecretKey } = require('../env');
+const { secretKey } = require('../env');
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
@@ -18,22 +17,29 @@ module.exports = (sequelize, DataTypes) => {
     hooks: {
       beforeSave: async (user) => {
         if (user.password) {
+          // eslint-disable-next-line no-param-reassign
           user.password_hash = await bcrypt.hash(user.password, 8);
         }
       },
     },
   });
 
-  User.prototype.checkPassword = function (password) { return bcrypt.compare(password, this.password_hash); };
+  User.prototype.checkPassword = function (password) {
+    return bcrypt.compare(password, this.password_hash);
+  };
 
   User.prototype.generateToken = function () {
-    return jwt.sign({ id: this.id, admin: this.admin }, appSecretKey, {
+    return jwt.sign({ id: this.id, admin: this.admin }, secretKey, {
       expiresIn: '1 days',
     });
   };
 
   User.associates = (models) => {
-    User.belongsToMany(models.Books, { through: 'Favourites', foreignKey: 'user_id', as: 'books' });
+    User.belongsToMany(models.Books, {
+      through: 'Favourites',
+      foreignKey: 'user_id',
+      as: 'books',
+    });
   };
 
   return User;
