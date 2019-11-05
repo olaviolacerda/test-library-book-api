@@ -62,13 +62,20 @@ Now you're ready to start, run `npm run dev`.
 # Server Port
 PORT=3000
 
-# Database Info
-DB_PORT=5432
+# Database Info Localhost
+DB_PORT=15432
 DB_HOST=localhost
 DB_USERNAME=postgres
 DB_PASSWORD=postgres
 DB_DATABASE=library_book
 DB_DIALECT=postgres
+
+# Database Info Homolog
+DB_PORT=5432
+DB_HOST=salt.db.elephantsql.com
+DB_USERNAME=tqbonsyb
+DB_PASSWORD=d5l7lzfamObmZuX6za-ZnqAZ_pKQI-LQ
+DB_DATABASE=tqbonsyb
 
 # Secret Key for encrypting passwords
 SECRET_KEY=library_book_api
