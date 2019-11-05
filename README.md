@@ -1,5 +1,6 @@
 # Library Book API
 > An API for managing users and books. (https://library-book-api-olavio.herokuapp.com/)
+> Docs Collection. (https://github.com/olaviolacerda/library-book-api/blob/master/insomnia_collection.json)
 
 ## Technologies
 * NodeJS - version 10.17.0
