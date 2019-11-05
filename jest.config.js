@@ -2,12 +2,12 @@
 // https://jestjs.io/docs/en/configuration.html
 
 module.exports = {
-  roots: ['<rootDir>/src'],
+  roots: ['<rootDir>/__tests__'],
   // testRegex: '(./tests/.*|(\\.|/)(test|spec))\\.tsx?$',
   moduleFileExtensions: ['js', 'jsx', 'json', 'node'],
   // All imported modules in your tests should be mocked automatically
   // automock: false,
-  testMatch: ['**/tests/**/*.js?(x)', '**/?(*.)+(spec|test).js?(x)'],
+  testMatch: ['**/__tests__/**/*test.js?(x)', '**/?(*.)+(spec|test).js?(x)'],
   // Stop running tests after `n` failures
   bail: true,
 
