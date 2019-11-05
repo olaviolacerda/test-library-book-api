@@ -52,7 +52,7 @@ Execute the docker compose file, with the following command `docker-compose up -
 ##### Postgres way
 Just create a database named `library` or chose one database name and change the `.env` file.
 
-Then, run the following command `npm run dabase:prepare`. This command will start the database, creating the tables, migrations and seeding some data.
+Then, run the following command `npm run database:prepare`. This command will start the database, creating the tables, migrations and seeding some data.
 
 Now you're ready to start, run `npm run dev`.
 
