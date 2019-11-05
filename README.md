@@ -7,6 +7,36 @@
 * Docker - version 18.09.7
 * Sequelize - version 5.21.2
 
+## Routes
+
+##### Session
+
+| method | resource | description                            |
+|--------|----------|----------------------------------------|
+| POST   | `/login` | Generate a Bearer Token to use the api |
+
+##### Users
+
+| method | resource | description                     |
+|--------|----------|---------------------------------|
+| POST   | `/users` | Create an user                  |
+| GET    | `/users` | List all users                  |
+| GET    | `/users/:userId` | Show infos about an user        |
+| POST   | `/users/:userId/favourites` | Add a book on user favourites   |
+| DELETE | `/users/:userId` | Delete an user                  |
+| PUT    | `/users/:userId` | Edit user                       |
+| GET    | `/users/:userId` | List favourite books of an user |
+
+##### Books
+
+| method | resource | description                     |
+|--------|----------|---------------------------------|
+| POST   | `/books` | Create a book                  |
+| GET    | `/books` | List all books                  |
+| GET    | `/books/:bookId` | Show infos about a book        |
+| DELETE | `/books/:bookId` | Delete an book                  |
+| PUT    | `/books/:bookId` | Edit book                       |
+
 ## Setup
 
 First of all, run `npm install` or `yarn` to install all the node dependencies.
