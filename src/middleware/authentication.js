@@ -1,24 +1,21 @@
 const jwt = require('jsonwebtoken');
 const { promisify } = require('util');
 const { secretKey } = require('../env');
+const CustomError = require('../helpers/error');
 
 module.exports = async (req, res, next) => {
-  const authHeader = req.headers.authorization;
-
-  if (!authHeader) {
-    return res.status(401).json({ message: 'Missing authentication token' });
-  }
-
-  const [, accessToken] = authHeader.split(' ');
-
   try {
+    const authHeader = req.headers.authorization;
+
+    const [, accessToken] = authHeader.split(' ');
+
     const decodedUser = await promisify(jwt.verify)(accessToken, secretKey);
 
     req.userId = decodedUser.id;
     req.isUserAdmin = decodedUser.admin;
 
-    return next();
+    next();
   } catch (err) {
-    return res.status(401).json({ message: 'Invalid authentication token' });
+    next(new CustomError(401, 'ERROR_AUTHENTICATION', 'Invalid authentication token'));
   }
 };

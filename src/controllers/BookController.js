@@ -1,28 +1,28 @@
 /* eslint-disable class-methods-use-this */
 const bookService = require('../services/BookService');
+const CustomError = require('../helpers/error');
 
 class BookController {
-  async create(req, res) {
+  async create(req, res, next) {
     try {
       const book = await bookService.create(req.body);
 
       return res.status(201).json(book);
     } catch (error) {
-      return res.status(400).json({ code: 'ERROR_CREATE_BOOK', message: error.message, timestamp: new Date().getTime() });
+      return next(new CustomError(400, 'ERROR_CREATE_BOOK', error.message));
     }
   }
 
-  async list(req, res) {
+  async list(req, res, next) {
     try {
       const books = await bookService.list();
-
       return res.json(books);
     } catch (error) {
-      return res.status(400).json({ code: 'ERROR_LIST_BOOK', message: error.message, timestamp: new Date().getTime() });
+      return next(new CustomError(400, 'ERROR_LIST_BOOK', error.message));
     }
   }
 
-  async update(req, res) {
+  async update(req, res, next) {
     try {
       const { bookId } = req.params;
 
@@ -32,22 +32,22 @@ class BookController {
 
       return res.json(book);
     } catch (error) {
-      return res.status(400).json({ code: 'ERROR_EDIT_BOOK', message: error.message, timestamp: new Date().getTime() });
+      return next(new CustomError(400, 'ERROR_EDIT_BOOK', error.message));
     }
   }
 
-  async show(req, res) {
+  async show(req, res, next) {
     try {
       const { bookId } = req.params;
       const book = await bookService.findById(bookId);
 
       return res.json(book);
     } catch (error) {
-      return res.status(400).json({ code: 'ERROR_SHOW_BOOK', message: error.message, timestamp: new Date().getTime() });
+      return next(new CustomError(400, 'ERROR_SHOW_BOOK', error.message));
     }
   }
 
-  async delete(req, res) {
+  async delete(req, res, next) {
     try {
       const { bookId } = req.params;
 
@@ -61,7 +61,7 @@ class BookController {
 
       return res.json({ message: 'Book was successfully deleted.' });
     } catch (error) {
-      return res.status(400).json({ code: 'ERROR_DELETE_BOOK', message: error.message, timestamp: new Date().getTime() });
+      return next(new CustomError(400, 'ERROR_DELETE_BOOK', error.message));
     }
   }
 }

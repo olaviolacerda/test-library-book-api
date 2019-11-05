@@ -1,8 +1,9 @@
 /* eslint-disable class-methods-use-this */
 const favouriteService = require('../services/FavouriteService');
+const CustomError = require('../helpers/error');
 
 class FavouriteController {
-  async add(req, res) {
+  async add(req, res, next) {
     try {
       const { userId } = req.params;
       const { bookId } = req.body;
@@ -11,11 +12,11 @@ class FavouriteController {
 
       return res.status(201).json({ message: 'Book was successfully added to users favourites.' });
     } catch (error) {
-      return res.status(400).json({ code: 'ERROR_ADD_FAVOURITE_BOOK', message: error.message, timestamp: new Date().getTime() });
+      return next(new CustomError(400, 'ERROR_ADD_FAVOURITE_BOOK', error.message));
     }
   }
 
-  async list(req, res) {
+  async list(req, res, next) {
     try {
       const { userId } = req.params;
 
@@ -23,7 +24,7 @@ class FavouriteController {
 
       return res.json(favouriteBooks);
     } catch (error) {
-      return res.status(400).json({ code: 'ERROR_LIST_FAVOURITE_BOOKS', message: error.message, timestamp: new Date().getTime() });
+      return next(new CustomError(400, 'ERROR_LIST_FAVOURITE_BOOKS', error.message));
     }
   }
 }

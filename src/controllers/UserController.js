@@ -1,18 +1,19 @@
 /* eslint-disable class-methods-use-this */
 const userService = require('../services/UserService');
+const CustomError = require('../helpers/error');
 
 class UserController {
-  async create(req, res) {
+  async create(req, res, next) {
     try {
       const user = await userService.create(req.body);
 
       return res.status(201).json(user);
     } catch (error) {
-      return res.status(400).json({ code: 'ERROR_CREATE_USER', message: error.message, timestamp: new Date().getTime() });
+      return next(new CustomError(400, 'ERROR_CREATE_USER', error.message));
     }
   }
 
-  async show(req, res) {
+  async show(req, res, next) {
     try {
       const { userId } = req.params;
       const user = await userService.findById(userId, {
@@ -21,21 +22,21 @@ class UserController {
 
       return res.json(user);
     } catch (error) {
-      return res.status(400).json({ code: 'ERROR_SHOW_USER', message: error.message, timestamp: new Date().getTime() });
+      return next(new CustomError(400, 'ERROR_SHOW_USER', error.message));
     }
   }
 
-  async list(req, res) {
+  async list(req, res, next) {
     try {
       const users = await userService.list();
 
       return res.json(users);
     } catch (error) {
-      return res.status(400).json({ code: 'ERROR_LIST_USERS', message: error.message, timestamp: new Date().getTime() });
+      return next(new CustomError(400, 'ERROR_LIST_USERS', error.message));
     }
   }
 
-  async update(req, res) {
+  async update(req, res, next) {
     try {
       const { userId } = req.params;
 
@@ -45,11 +46,11 @@ class UserController {
 
       return res.json(user);
     } catch (error) {
-      return res.status(400).json({ code: 'ERROR_EDIT_USER', message: error.message, timestamp: new Date().getTime() });
+      return next(new CustomError(400, 'ERROR_EDIT_USER', error.message));
     }
   }
 
-  async delete(req, res) {
+  async delete(req, res, next) {
     try {
       const { userId } = req.params;
 
@@ -63,11 +64,11 @@ class UserController {
 
       return res.json({ message: 'User was successfully deleted.' });
     } catch (error) {
-      return res.status(400).json({ code: 'ERROR_DELETE_USER', message: error.message, timestamp: new Date().getTime() });
+      return next(new CustomError(400, 'ERROR_DELETE_USER', error.message));
     }
   }
 
-  async updateFavoriteBooks(req, res) {
+  async updateFavoriteBooks(req, res, next) {
     try {
       const { userId } = req.params;
       const { bookIds } = req.body;
@@ -78,7 +79,7 @@ class UserController {
 
       return res.json({ message: 'Favorite Books List updated.' });
     } catch (error) {
-      return res.status(400).json({ code: 'ERROR_UPDATE_USER_FAVORITE_BOOKS', message: error.message, timestamp: new Date().getTime() });
+      return next(new CustomError(400, 'ERROR_UPDATE_USER_FAVORITE_BOOKS', error.message));
     }
   }
 }
